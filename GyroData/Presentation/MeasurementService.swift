@@ -97,7 +97,7 @@ class MeasurementService {
         stopAction = action
     }
     
-    func registAppandCoordinateAction(action: @escaping (((x: Double, y: Double, z: Double)) -> Void)) {
+    func registerCoordinateAction(action: @escaping (((x: Double, y: Double, z: Double)) -> Void)) {
         addAction = action
     }
 }

@@ -135,4 +135,14 @@ class MeasureView: UIView {
             )
         ])
     }
+    
+    func hideButton(_ isButtonHide: Bool) {
+        if isButtonHide {
+            measurementButton.isHidden = true
+            stopButton.isHidden = false
+        } else {
+            stopButton.isHidden = true
+            measurementButton.isHidden = false
+        }
+    }
 }

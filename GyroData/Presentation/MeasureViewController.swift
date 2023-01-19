@@ -66,8 +66,7 @@ class MeasureViewController: UIViewController {
     }
     
     @objc func measureAction() {
-        measureView.measurementButton.isHidden = true
-        measureView.stopButton.isHidden = false
+        measureView.hideButton(true)
         toggleSegmentedControl(isEnable: false)
         measureView.chartsView.setupDefaultValue()
         
@@ -91,8 +90,7 @@ class MeasureViewController: UIViewController {
             target: self,
             action: #selector(saveAction)
         )
-        measureView.stopButton.isHidden = true
-        measureView.measurementButton.isHidden = false
+        measureView.hideButton(false)
     }
     
     @objc
@@ -153,7 +151,7 @@ class MeasureViewController: UIViewController {
     }
     
     private func bind() {
-        measurementService.registAppandCoordinateAction { (x, y, z) in
+        measurementService.registerCoordinateAction { (x, y, z) in
             self.measureView.chartsView.drawLine(x: x, y: y, z: z)
             
             let strX = String(format: "%.1f", x)
