@@ -83,6 +83,7 @@ class ReplayViewController: UIViewController {
             Stopwatch.share.timer.invalidate()
             second = 0
             count = 0
+            replayView.chartsView.setupDefaultValue()
             return
         }
 

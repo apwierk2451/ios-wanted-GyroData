@@ -66,6 +66,7 @@ class MeasureViewController: UIViewController {
     }
     
     @objc func measureAction() {
+        measureView.measurementButton.isHidden = true
         measureView.stopButton.isHidden = false
         toggleSegmentedControl(isEnable: false)
         measureView.chartsView.setupDefaultValue()
@@ -91,6 +92,7 @@ class MeasureViewController: UIViewController {
             action: #selector(saveAction)
         )
         measureView.stopButton.isHidden = true
+        measureView.measurementButton.isHidden = false
     }
     
     @objc
