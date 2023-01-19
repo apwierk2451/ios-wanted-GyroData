@@ -21,7 +21,7 @@ class ReplayViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+        super.viewWillAppear(animated)
         if motionInfo?.pageType == ReplayViewPageType.view {
             replayView.playButton.isHidden = true
             replayView.runtimeLabel.isHidden = true
@@ -65,7 +65,7 @@ class ReplayViewController: UIViewController {
     func activateTimer() {
         Stopwatch.share.isRunning.toggle()
         
-        let systemImageName = Stopwatch.share.isRunning ? "play.fill" : "stop.fill"
+        let systemImageName = Stopwatch.share.isRunning ? "stop.fill" : "play.fill"
         let imageConfig = UIImage.SymbolConfiguration(
             pointSize: 45,
             weight: .light
@@ -91,6 +91,13 @@ class ReplayViewController: UIViewController {
         Stopwatch.share.timer = Timer.scheduledTimer(
             withTimeInterval: 0.1, repeats: true
         ) { [weak self] timer in
+            
+            count += 1
+            second += 0.1
+
+            let strTime = String(format: "%.1f", second)
+            self?.replayView.configureTimeLabel(time: strTime)
+
             if (second == (Double(motion.runtime)) ?? 0.0) || (count >= motion.motionX.count) {
                 Stopwatch.share.timer.invalidate()
                 return
@@ -110,13 +117,6 @@ class ReplayViewController: UIViewController {
                 y: strY,
                 z: strZ
             )
-            
-            let strTime = String(format: "%.1f", second)
-            
-            self?.replayView.configureTimeLabel(time: strTime)
-            
-            count += 1
-            second += 0.1
         }
     }
     
