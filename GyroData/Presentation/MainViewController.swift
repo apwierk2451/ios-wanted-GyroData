@@ -43,7 +43,6 @@ final class MainViewController: UIViewController {
     }
     
     private func setupDefault() {
-        gyroListView.register(MainTableViewCell.self, forCellReuseIdentifier: "measurementListViewCell")
         gyroListView.delegate = self
         gyroListView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -51,13 +50,13 @@ final class MainViewController: UIViewController {
             tableView: gyroListView,
             cellProvider: { tableView, indexPath, itemIdentifier in
                 guard let cell = tableView.dequeueReusableCell(
-                    withIdentifier: "measurementListViewCell",
+                    withIdentifier: MainTableViewCell.id,
                     for: indexPath
                 ) as? MainTableViewCell else {
                     return nil
                 }
 
-                cell.configure(motion: itemIdentifier)
+                cell.configureLabelText(motion: itemIdentifier)
                 return cell
             })
         

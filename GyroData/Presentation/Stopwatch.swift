@@ -14,16 +14,4 @@ class Stopwatch {
     var isRunning = false
     
     private init() { }
-    
-    func activateTimer(for time: TimeInterval, _ currentTime: TimeInterval) {
-        if (floor(currentTime) == time) || (isRunning == false) {
-            timer.invalidate()
-            return
-        }
-        
-        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
-            print(currentTime, Date())
-            self.activateTimer(for: time, currentTime+0.1)
-        }
-    }
 }

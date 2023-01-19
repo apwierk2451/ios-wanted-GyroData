@@ -97,9 +97,16 @@ final class MainTableViewCell: UITableViewCell {
         ])
     }
     
-    func configure(motion: Motion) {
-        self.measurementTime.text = motion.date
-        self.measurementType.text = motion.measurementType
-        self.measurementValue.text = "\(motion.runtime)"
+    func configureLabelText(motion: Motion) {
+        measurementTime.text = motion.date
+        measurementType.text = motion.measurementType
+        measurementValue.text = "\(motion.runtime)"
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        measurementTime.text = ""
+        measurementType.text = ""
+        measurementValue.text = ""
     }
 }
