@@ -67,7 +67,26 @@ class ReplayView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureTimeLabel(time: String) {
+    func changeTimeLabel(time: String) {
         self.runtimeLabel.text = "\(time)"
+    }
+    
+    func configureLabelText(motion: MotionInfo) {
+        measurementTime.text = motion.data.date
+        pageTypeLabel.text = motion.pageType.name
+        runtimeLabel.text = "00.0"
+    }
+    
+    func configureButtonImage(_ systemImageName: String) {
+        let imageConfig = UIImage.SymbolConfiguration(
+            pointSize: 45,
+            weight: .light
+        )
+        playButton.setImage(
+            UIImage(
+                systemName: systemImageName,
+                withConfiguration: imageConfig),
+            for: .normal
+        )
     }
 }

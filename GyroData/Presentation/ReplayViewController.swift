@@ -47,13 +47,16 @@ class ReplayViewController: UIViewController {
         self.navigationItem.title = "다시보기"
     }
     
-    private func setupDefault() {
-        replayView.measurementTime.text = motionInfo?.data.date
-        replayView.pageTypeLabel.text = motionInfo?.pageType.name
-        replayView.runtimeLabel.text = "00.0"
 
-        replayView.playButton.addTarget(self, action: #selector(activateTimer), for: .touchUpInside)
+    
+    private func setupDefault() {
+        guard let motion = motionInfo else {
+            return
+        }
         
+        replayView.configureLabelText(motion: motion)
+        replayView.playButton.addTarget(self, action: #selector(activateTimer), for: .touchUpInside)
+
         view.backgroundColor = .white
     }
     
@@ -61,22 +64,15 @@ class ReplayViewController: UIViewController {
         view.addSubview(replayView)
     }
     
+    
+    
     @objc
     func activateTimer() {
         Stopwatch.share.isRunning.toggle()
-        
+
         let systemImageName = Stopwatch.share.isRunning ? "stop.fill" : "play.fill"
-        let imageConfig = UIImage.SymbolConfiguration(
-            pointSize: 45,
-            weight: .light
-        )
-        replayView.playButton.setImage(
-            UIImage(
-                systemName: systemImageName,
-                withConfiguration: imageConfig),
-            for: .normal
-        )
-        
+        replayView.configureButtonImage(systemImageName)
+
         var second: Double = 0
         var count = 0
         if !Stopwatch.share.isRunning {
@@ -97,7 +93,7 @@ class ReplayViewController: UIViewController {
             second += 0.1
 
             let strTime = String(format: "%.1f", second)
-            self?.replayView.configureTimeLabel(time: strTime)
+            self?.replayView.changeTimeLabel(time: strTime)
 
             if (second == (Double(motion.runtime)) ?? 0.0) || (count >= motion.motionX.count) {
                 Stopwatch.share.timer.invalidate()
